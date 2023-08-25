@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <div className="flex gap-3">
-          <SideNavbar className={"w-[20%]"} />
+          <SideNavbar className={"w-[25%]"} />
           <div className="flex-grow">{children}</div>
         </div>
       </body>

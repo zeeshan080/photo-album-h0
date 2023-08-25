@@ -13,7 +13,7 @@ type Props = {
 };
 const MAX_COLUMNS = 4;
 
-export default function GalleryComponent({ images, title }: Props) {
+export default function AlbumComponent({ images, title }: Props) {
   const router = useRouter();
   function getColumns(colIndex: number) {
     return images.filter((resource, idx) => idx % MAX_COLUMNS === colIndex);
@@ -23,18 +23,6 @@ export default function GalleryComponent({ images, title }: Props) {
     <article className="m-3">
       <section className="flex justify-between items-center p-3">
         <h1 className="text-[24px] font-semibold">{title}</h1>
-        <Button asChild>
-          <CldUploadButton
-            uploadPreset="hackzero"
-            //find a  way then upload done
-            onUpload={(result) => {
-              router.refresh();
-            }}
-          >
-            <Upload size={16} className="mr-1" />
-            Upload
-          </CldUploadButton>
-        </Button>
       </section>
       <section className="w-full grid grid-cols-4 gap-4">
         {[getColumns(0), getColumns(1), getColumns(2), getColumns(3)].map(
