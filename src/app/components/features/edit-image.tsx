@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { CldImage } from "next-cloudinary";
 import { Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 type Props = {};
 
@@ -13,13 +14,29 @@ export default function EditImage({}: Props) {
   const [transformation, setTransformation] = useState<
     undefined | "generative-fill" | "blur" | "grayscale"
   >();
+  const [prompt, setPrompt] = useState("");
+  const [pendingPrompt, setPendingPrompt] = useState("");
 
   return (
     <div className="p-6">
-      <div className="py-3 flex gap-3">
-        <Button onClick={() => setTransformation("generative-fill")}>
+      <div className="w-full">
+        <Input
+          placeholder="Enter Prompt..."
+          value={pendingPrompt}
+          onChange={(e) => {
+            setPendingPrompt(e.currentTarget.value);
+          }}
+        />
+        <Button
+          onClick={() => {
+            setTransformation("generative-fill");
+            setPrompt(pendingPrompt);
+          }}
+        >
           Apply Generative Fill
         </Button>
+      </div>
+      <div className="py-3 flex gap-3">
         <Button onClick={() => setTransformation("blur")}>Apply Blur</Button>
         <Button onClick={() => setTransformation("grayscale")}>
           Convert to Gray
@@ -44,7 +61,7 @@ export default function EditImage({}: Props) {
               width={300}
               height={400}
               crop="pad"
-              fillBackground
+              fillBackground={{ prompt: prompt }}
               className="w-full"
             />
           )}
