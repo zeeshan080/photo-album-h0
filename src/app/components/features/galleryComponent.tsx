@@ -6,14 +6,16 @@ import { Upload } from "lucide-react";
 import { searchResult } from "@/app/types/common";
 import ViewImage from "./viewImage";
 import { useRouter } from "next/navigation";
+import Searchbar from "./search-bar";
 
 type Props = {
   images: searchResult[];
   title: string;
+  search:string;
 };
 const MAX_COLUMNS = 4;
 
-export default function GalleryComponent({ images, title }: Props) {
+export default function GalleryComponent({ images, title,search }: Props) {
   const router = useRouter();
   function getColumns(colIndex: number) {
     return images.filter((resource, idx) => idx % MAX_COLUMNS === colIndex);
@@ -36,21 +38,23 @@ export default function GalleryComponent({ images, title }: Props) {
           </CldUploadButton>
         </Button>
       </section>
+      <Searchbar  initialSearch={search}  />
       <section className="w-full grid grid-cols-4 gap-4">
         {[getColumns(0), getColumns(1), getColumns(2), getColumns(3)].map(
-          (images, idx) =>
-          <div key={idx} className="flex flex-col gap-4">
-            {images.map((image) => (
-              <ViewImage
-                key={image.public_id}
-                publicId={image.public_id}
-                tags={image.tags}
-                alt={"image"}
-                width={image.width}
-                height={image.height}
-              />
-            ))}
+          (images, idx) => (
+            <div key={idx} className="flex flex-col gap-4">
+              {images.map((image) => (
+                <ViewImage
+                  key={image.public_id}
+                  publicId={image.public_id}
+                  tags={image.tags}
+                  alt={"image"}
+                  width={image.width}
+                  height={image.height}
+                />
+              ))}
             </div>
+          )
         )}
       </section>
     </article>
