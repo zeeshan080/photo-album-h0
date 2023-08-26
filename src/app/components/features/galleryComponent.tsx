@@ -11,7 +11,7 @@ import Searchbar from "./search-bar";
 type Props = {
   images: searchResult[];
   title: string;
-  search:string;
+  search?:string;
 };
 const MAX_COLUMNS = 4;
 
@@ -38,7 +38,7 @@ export default function GalleryComponent({ images, title,search }: Props) {
           </CldUploadButton>
         </Button>
       </section>
-      <Searchbar  initialSearch={search}  />
+      <Searchbar  initialSearch={search ?? ""}  />
       <section className="w-full grid grid-cols-4 gap-4">
         {[getColumns(0), getColumns(1), getColumns(2), getColumns(3)].map(
           (images, idx) => (
